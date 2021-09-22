@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReadOnlyBase 
 {
-    use HasFactory;
+    //use HasFactory;
 
     protected $titles_array = [];
 
