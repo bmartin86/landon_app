@@ -7,4 +7,8 @@ use Illuminate\Http\Request;
 class ReservationsController extends Controller
 {
     //
-}
+    public function bookRoom()
+    {
+
+    }
+}    
