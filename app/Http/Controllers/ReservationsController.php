@@ -9,6 +9,6 @@ class ReservationsController extends Controller
     //
     public function bookRoom()
     {
-
+        return view('reservations/bookRoom');
     }
 }    
