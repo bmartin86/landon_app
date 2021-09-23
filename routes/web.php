@@ -14,12 +14,12 @@ use App\Http\Controllers\ClientController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/', function () {
     //return view('welcome');
     return '<h3>Landon App Page</h3>';
 });
-
+*/
 Route::get('/About', function () {
     $response_arr = [];
     $response_arr['author'] = 'BP';
@@ -28,25 +28,25 @@ Route::get('/About', function () {
     //return '<h3>About</h3>';
 });
 
-
+/*
 Route::get('/home', function () {
     $data = [];
     $data ['version'] = '0.1.1';
     return view('welcome', $data);
 });
-
+*/
 
 Route::get('/di', [ClientController::class, 'di']);
+Route::get('/', [ContentsController::class, 'home'])->name('home');
 
-Route::get('/clients', [ClientController::class, 'index']);
-Route::get('/clients/new', [ClientController::class, 'newClient']);
-Route::post('/clients/new', [ClientController::class, 'create']);
-Route::get('/clients/{client_id}', [ClientController::class, 'show']);
-Route::post('/clients/{client_id}', [ClientController::class, 'modify']);
+Route::get('/clients', [ClientController::class, 'index'])->name('clients');
+Route::get('/clients/new', [ClientController::class, 'newClient'])->name('new_client');
+Route::post('/clients/new', [ClientController::class, 'create'])->name('create_client');
+Route::get('/clients/{client_id}', [ClientController::class, 'show'])->name('show_client');
+Route::post('/clients/{client_id}', [ClientController::class, 'modify'])->name('update_client');
 
-Route::get('/reservations/{client_id}', [RoomsController::class, 'checkAvailableRooms']);
-Route::post('/reservations/{client_id}', [RoomsController::class, 'checkAvailableRooms']);
+Route::get('/reservations/{client_id}', [RoomsController::class, 'checkAvailableRooms'])->name('check_room');
+Route::post('/reservations/{client_id}', [RoomsController::class, 'checkAvailableRooms'])->name('check_room');
 
-Route::get('/book/room/{client_id}/{room_id}/{date_in}/{date_out}', [ReservationController::class, 'bookRoom']);
+Route::get('/book/room/{client_id}/{room_id}/{date_in}/{date_out}', [ReservationController::class, 'bookRoom'])->name('book_room');
 
-Route::get('/ex', [ContentsController::class, 'home']);
