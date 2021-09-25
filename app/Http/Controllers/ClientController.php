@@ -41,9 +41,30 @@ class ClientController extends Controller
         //return view('client/index');
     }
 
-    public function newClient()
+    public function newClient( Request $request )
     {
-        return view('client/newClient');
+        $data = [];
+
+        $data ['title'] = $request->input('title');
+        $data ['name'] = $request->input('name');
+        $data ['last_name'] = $request->input('last_name');
+        $data ['adress'] = $request->input('adress');
+        $data ['zip_code'] = $request->input('zip_code');
+        $data ['city'] = $request->input('title');
+        $data ['state'] = $request->input('state');
+        $data ['email'] = $request->input('email');
+        
+
+        $data ['titles'] = $this->titles;
+        $data ['modify'] = 0;
+
+        if ( $request->isMethod('post') )
+        {
+            dd($data);
+            return redire ('clients');
+        }
+
+        return view('client/form', $data);
     }
 
     public function create()
@@ -53,6 +74,9 @@ class ClientController extends Controller
 
     public function show($client_id)
     {
-        return view('client/show');
+        $data = [];
+        $data ['titles'] = $this->titles;
+        $data ['modify'] = 1;
+        return view('client/form', $data);
     }
 }

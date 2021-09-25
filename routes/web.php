@@ -42,7 +42,7 @@ Route::get('/', [ContentsController::class, 'home'])->name('home');
 
 Route::get('/clients', [ClientController::class, 'index'])->name('clients');
 Route::get('/clients/new', [ClientController::class, 'newClient'])->name('new_client');
-Route::post('/clients/new', [ClientController::class, 'create'])->name('create_client');
+Route::post('/clients/new', [ClientController::class, 'newClient'])->name('create_client');
 Route::get('/clients/{client_id}', [ClientController::class, 'show'])->name('show_client');
 Route::post('/clients/{client_id}', [ClientController::class, 'modify'])->name('update_client');
 
