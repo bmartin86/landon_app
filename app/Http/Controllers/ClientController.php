@@ -48,7 +48,7 @@ class ClientController extends Controller
         $data ['title'] = $request->input('title');
         $data ['name'] = $request->input('name');
         $data ['last_name'] = $request->input('last_name');
-        $data ['adress'] = $request->input('adress');
+        $data ['address'] = $request->input('address');
         $data ['zip_code'] = $request->input('zip_code');
         $data ['city'] = $request->input('title');
         $data ['state'] = $request->input('state');
@@ -60,8 +60,22 @@ class ClientController extends Controller
 
         if ( $request->isMethod('post') )
         {
-            dd($data);
-            return redire ('clients');
+            //dd($data);
+            $this->validate(
+                $request,
+                [
+                    'name' => 'required|min:5',
+                    'last_name' => 'required',
+                    'address' => 'required',
+                    'zip_code' => 'required',
+                    'city' => 'required',
+                    'state' => 'required',
+                    'email' => 'required',
+                ]
+
+            );
+
+            return redirect ('clients');
         }
 
         return view('client/form', $data);
