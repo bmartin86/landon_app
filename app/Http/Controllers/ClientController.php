@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Title as Title;
+use App\Models\Client as Client;
 
 class ClientController extends Controller
 {
     //
-    public function __construct( Title $titles)
+    public function __construct( Title $titles, Client $client)
     {
         $this->titles = $titles->all();
+        $this->client = $client;
     }
 
     public function di()
@@ -22,26 +24,12 @@ class ClientController extends Controller
     {
         $data = [];
 
-        $obj = new \stdClass;
-        $obj->id = 1;
-        $obj->title = 'mr';
-        $obj->name = 'john';
-        $obj->last_name = 'doe';
-        $obj->email = 'john@domain.com';
-        $data['clients'][] = $obj;
-    
-        $obj = new \stdClass;
-        $obj->id = 2;
-        $obj->title = 'ms';
-        $obj->name = 'jane';
-        $obj->last_name = 'doe';
-        $obj->email = 'jane@another-domain.com';
-        $data['clients'][] = $obj;
+        $data ['clients'] = $this->client->all();
         return view('client/index', $data);
         //return view('client/index');
     }
 
-    public function newClient( Request $request )
+    public function newClient( Request $request, Client $client )
     {
         $data = [];
 
@@ -53,10 +41,6 @@ class ClientController extends Controller
         $data ['city'] = $request->input('title');
         $data ['state'] = $request->input('state');
         $data ['email'] = $request->input('email');
-        
-
-        $data ['titles'] = $this->titles;
-        $data ['modify'] = 0;
 
         if ( $request->isMethod('post') )
         {
@@ -64,7 +48,7 @@ class ClientController extends Controller
             $this->validate(
                 $request,
                 [
-                    'name' => 'required|min:5',
+                    'name' => 'required|min:3',
                     'last_name' => 'required',
                     'address' => 'required',
                     'zip_code' => 'required',
@@ -75,9 +59,14 @@ class ClientController extends Controller
 
             );
 
+            $client->insert($data);
+
+
             return redirect ('clients');
         }
 
+        $data ['titles'] = $this->titles;
+        $data ['modify'] = 0;
         return view('client/form', $data);
     }
 
