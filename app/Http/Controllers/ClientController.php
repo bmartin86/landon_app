@@ -59,13 +59,15 @@ class ClientController extends Controller
 
             );
 
+            
             $client->insert($data);
 
 
             return redirect ('clients');
         }
 
-
+        $data['titles'] = $this->titles;
+        $data['modify'] = 0;
         return view('client/form', $data);
     }
 
