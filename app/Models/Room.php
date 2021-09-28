@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 class Room extends Model
 {
     use HasFactory;
+    
     public function getAvailableRooms($start_date, $end_date)
     {
         $available_rooms = DB::table('rooms as r')
@@ -28,8 +29,20 @@ class Room extends Model
         return $available_rooms;
     }
 
-    public function reservations()
+    public function isRoomBooked( $room_id, $start_date, $end_date )
     {
-        return $this->hasMany(Reservation::class);
+
+        $available_rooms = DB::table('reservations')
+                        ->whereRaw("
+                            NOT(
+                                date_out < '{$start_date}' OR
+                                date_in > '{$end_date}'
+                                )
+                        ")
+                        ->where('room_id', $room_id)
+                        ->count()
+        ;
+        return $available_rooms;
+
     }
 }

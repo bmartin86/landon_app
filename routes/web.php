@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContentsController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\RoomsController;
+use App\Http\Controllers\ReservationsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,5 +50,6 @@ Route::post('/clients/{client_id}', [ClientController::class, 'modify'])->name('
 Route::get('/reservations/{client_id}', [RoomsController::class, 'checkAvailableRooms'])->name('check_room');
 Route::post('/reservations/{client_id}', [RoomsController::class, 'checkAvailableRooms'])->name('check_room');
 
-Route::get('/book/room/{client_id}/{room_id}/{date_in}/{date_out}', [ReservationController::class, 'bookRoom'])->name('book_room');
+Route::get('/book/room/{client_id}/{room_id}/{date_in}/{date_out}', [ReservationsController::class, 'bookRoom'])->name('book_room');
+
 
