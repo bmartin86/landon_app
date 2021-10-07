@@ -16,4 +16,21 @@ class ContentsController extends Controller
         $data ['last_updated'] = $last_updated;
         return view('contents/home', $data);
     }
+
+    public function upload(Request $request)
+    {
+        $data = [];
+        if ( $request->isMethod('post') )
+        {
+             $this->validate(
+                 $request,
+                 [
+                     'image_upload' => 'mimes:jpeg,bmp,png'
+                 ]
+             );
+             $request->file('image_upload')->move('images', 'attractions.jpg');
+             return redirect('/');
+        }
+        return view('contents/upload', $data);
+    }
 }

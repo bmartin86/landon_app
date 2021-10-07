@@ -52,4 +52,5 @@ Route::post('/reservations/{client_id}', [RoomsController::class, 'checkAvailabl
 
 Route::get('/book/room/{client_id}/{room_id}/{date_in}/{date_out}', [ReservationsController::class, 'bookRoom'])->name('book_room');
 
-
+Route::get('/upload', [ContentsController::class, 'upload'])->name('upload');
+Route::post('/upload', [ContentsController::class, 'upload'])->name('upload');
